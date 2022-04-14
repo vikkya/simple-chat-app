@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<title>{% block title %} Login Page {% endblock %}</title>
+{% block content %}
+<div class="row">
+    <div class="col-6 mx-auto my-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">Enter your login details</h2>
+                {% if message|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                  </div>
+                {% endif %}
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">User Name</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter your user name" autocomplete="off">
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+                      </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

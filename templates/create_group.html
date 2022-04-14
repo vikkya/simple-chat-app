@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<title>{% block title %} Create Group {% endblock %}</title>
+{% block content %}
+<div class="row">
+    <div class="col-6 mx-auto my-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">Enter Group details</h2>
+                {% if message|length > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                  </div>
+                {% endif %}
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="group" class="form-label">Group Name</label>
+                        <input type="text" class="form-control" name="group_name" id="group" placeholder="Enter a group name" autocomplete="off">
+                      </div>
+                    <div class="mb-3">
+                        <label for="members" class="form-label">Members Name</label>
+                        <input type="text" class="form-control" name="members" id="members" placeholder="Enter member name" autocomplete="off">
+                        <div id="emailHelp" class="form-text">Enter comma separated names.</div>
+                      </div>
+                      
+                <button type="submit" class="btn btn-primary">Create Group</button>
+                </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}
