@@ -106,7 +106,7 @@ def edit_group(group_id):
 
 @app.route("/groups/<group_id>")
 @login_required
-def groups(group_id):
+def view_group(group_id):
     group = get_group(group_id)
     if group and is_group_member(group_id, current_user.username):
         group_members = get_group_members(group_id)
