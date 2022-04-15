@@ -18,9 +18,9 @@ login_manager.init_app(app)
 def home():
     if current_user.is_authenticated:
         groups = get_groups_for_user(current_user.username)
+        return render_template("index.html", groups=groups)
     else:
-        return render_template(url_for("login"))
-    return render_template("index.html", groups=groups)
+        return redirect(url_for("login"))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
