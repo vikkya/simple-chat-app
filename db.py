@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from bson import ObjectId
 from werkzeug.security import generate_password_hash
 from user import User
@@ -9,9 +9,11 @@ client = MongoClient(os.environ.get('DATABASE_URL'))
 
 chat_db = client.get_database(os.environ.get("DB_NAME"))
 
+
 users_collection = chat_db.get_collection("users")
 group_collection = chat_db.get_collection("groups")
 group_members_collection = chat_db.get_collection("group_members")
+messages_collection = chat_db.get_collection("messages")
 
 
 def save_user(username, email, password):
@@ -63,3 +65,12 @@ def is_group_member(group_id, username):
 
 def is_group_admin(group_id, username):
     return group_members_collection.count_documents({'_id': {'group_id': ObjectId(group_id), 'username': username}, 'is_group_admin':True})
+
+def save_message(group_id, text, sender):
+    messages_collection.insert_one({'group_id': group_id, "text": text, "sender": sender, "created_at": datetime.now()})
+
+MESSAGE_LIMIT = 3
+def get_messages(group_id, page=0):
+    offset = page * MESSAGE_LIMIT
+    message = list(messages_collection.find({"group_id": group_id}).sort("_id", DESCENDING).limit(MESSAGE_LIMIT).skip(offset))
+    return message[::-1]
