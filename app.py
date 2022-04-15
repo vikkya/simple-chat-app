@@ -132,7 +132,7 @@ def load_user(username):
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5004)
 
 # ztQLx8ApKOXPjdBx mongoDB password
 # mongodb+srv://vikky:ztQLx8ApKOXPjdBx@cluster0.7s50k.mongodb.net/SIMPLECHATAPP?retryWrites=true&w=majority
