@@ -8,7 +8,7 @@ from db import get_user,save_user, save_group, add_group_members, get_groups_for
 
 app = Flask(__name__)
 app.secret_key = 'Hello world'
-socketio = SocketIO(app)
+socketio = SocketIO(app,cors_allowed_origins="*")
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
@@ -132,7 +132,7 @@ def load_user(username):
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, host='0.0.0.0', port=5004)
+    socketio.run(app, debug=True)
 
 # ztQLx8ApKOXPjdBx mongoDB password
 # mongodb+srv://vikky:ztQLx8ApKOXPjdBx@cluster0.7s50k.mongodb.net/SIMPLECHATAPP?retryWrites=true&w=majority
