@@ -15,12 +15,11 @@ login_manager.login_view = 'login'
 login_manager.init_app(app)
 
 @app.route("/")
+@login_required
 def home():
     if current_user.is_authenticated:
         groups = get_groups_for_user(current_user.username)
-        return render_template("index.html", groups=groups)
-    else:
-        return redirect(url_for("login"))
+    return render_template("index.html", groups=groups)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -75,7 +74,7 @@ def signup():
         password = request.form.get("password")
         try:
             save_user(username, email, password)
-            redirect(url_for("login"))
+            return redirect(url_for("login"))
         except DuplicateKeyError:
             message = "User already exists"
     return render_template('signup.html', message=message)
@@ -105,7 +104,7 @@ def edit_group(group_id):
         
         return render_template("edit_group.html", group=group, group_members_str=group_members_str, message=message)
     else:
-        return "Group not found", 404
+        return '<div class="alert alert-danger" role="alert">Permission Denied! You are not the admin.</div>'
 
 @app.route("/groups/<group_id>")
 @login_required
