@@ -4,10 +4,10 @@ from flask_login import LoginManager, login_user, logout_user,login_required, cu
 import pymongo
 from pymongo.errors import DuplicateKeyError
 from db import get_user,save_user, save_group, add_group_members, get_groups_for_user, get_group, get_group_members, is_group_member, is_group_admin, update_group, remove_group_members
-
+import os
 
 app = Flask(__name__)
-app.secret_key = 'Hello world'
+app.secret_key = os.environ.get('SECRET_KEY')
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
@@ -134,6 +134,3 @@ def load_user(username):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# ztQLx8ApKOXPjdBx mongoDB password
-# mongodb+srv://vikky:ztQLx8ApKOXPjdBx@cluster0.7s50k.mongodb.net/SIMPLECHATAPP?retryWrites=true&w=majority

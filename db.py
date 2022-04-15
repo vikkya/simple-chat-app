@@ -3,10 +3,11 @@ from bson import ObjectId
 from werkzeug.security import generate_password_hash
 from user import User
 from datetime import datetime
+import os
 
-client = MongoClient("mongodb+srv://vikky:ztQLx8ApKOXPjdBx@cluster0.7s50k.mongodb.net/SIMPLECHATAPP?retryWrites=true&w=majority")
+client = MongoClient(os.environ.get('DATABASE_URL'))
 
-chat_db = client.get_database("SIMPLECHATAPP")
+chat_db = client.get_database(os.environ.get("DB_NAME"))
 
 users_collection = chat_db.get_collection("users")
 group_collection = chat_db.get_collection("groups")
